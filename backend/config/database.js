@@ -39,6 +39,12 @@ module.exports = {
     port: process.env.DB_PORT || 3306,
     dialect: process.env.DB_DIALECT || 'mysql',
     logging: false,
+    dialectOptions: {
+      ssl: {
+        require: false,
+        rejectUnauthorized: false
+      }
+    },
     pool: {
       max: 20,
       min: 5,
