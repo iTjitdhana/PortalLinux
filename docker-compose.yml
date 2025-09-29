@@ -1,6 +1,28 @@
 version: '3.8'
 
 services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: portal_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${DB_NAME:-portal}
+      MYSQL_USER: ${DB_USER:-jitdhana}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-iT12345$}
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend/database/init:/docker-entrypoint-initdb.d
+    networks:
+      - portal_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
   # Backend API
   backend:
     build:
@@ -11,7 +33,7 @@ services:
     environment:
       NODE_ENV: production
       PORT: 3105
-      DB_HOST: 192.168.0.94
+      DB_HOST: mysql
       DB_PORT: 3306
       DB_NAME: ${DB_NAME:-portal}
       DB_USER: ${DB_USER:-jitdhana}
@@ -26,6 +48,9 @@ services:
       - "3105:3105"
     volumes:
       - backend_uploads:/app/uploads
+    depends_on:
+      mysql:
+        condition: service_healthy
     networks:
       - portal_network
     healthcheck:
@@ -74,6 +99,8 @@ services:
       - portal_network
 
 volumes:
+  mysql_data:
+    driver: local
   backend_uploads:
     driver: local
 
