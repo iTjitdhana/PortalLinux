@@ -82,7 +82,7 @@ Create `.env.local` file:
 
 ```env
 # API Configuration
-NEXT_PUBLIC_API_URL=http://localhost:3105/api/v1
+NEXT_PUBLIC_API_URL=http://192.168.0.96:3105/api/v1
 NEXT_PUBLIC_APP_URL=http://localhost:3015
 
 # Authentication

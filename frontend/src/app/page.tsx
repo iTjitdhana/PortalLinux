@@ -219,7 +219,7 @@ export default function IntranetDashboard() {
   const fetchDepartments = async () => {
     setLoadingDepartments(true)
     try {
-      const response = await fetch('http://localhost:3105/api/v1/dashboard/departments')
+      const response = await fetch('http://192.168.0.96:3105/api/v1/dashboard/departments')
       if (response.ok) {
         const data = await response.json()
         setDepartmentsData(data.data.departments || [])
@@ -240,7 +240,7 @@ export default function IntranetDashboard() {
     setLoadingSubsystems(true)
     console.log('🚀 Fetching subsystems from API...')
     try {
-      const response = await fetch('http://localhost:3105/api/v1/dashboard/subsystems?departmentId=1') // Production department
+      const response = await fetch('http://192.168.0.96:3105/api/v1/dashboard/subsystems?departmentId=1') // Production department
       console.log('📡 API Response status:', response.status)
       if (response.ok) {
         const data = await response.json()
@@ -263,7 +263,7 @@ export default function IntranetDashboard() {
     setLoadingAnnouncements(true)
     try {
       console.log('🚀 Fetching announcements from API...')
-      const response = await fetch('http://localhost:3105/api/v1/dashboard/announcements')
+      const response = await fetch('http://192.168.0.96:3105/api/v1/dashboard/announcements')
       console.log('📡 API Response status:', response.status)
       
       if (response.ok) {
@@ -286,7 +286,7 @@ export default function IntranetDashboard() {
   const fetchEvents = async () => {
     setLoadingEvents(true)
     try {
-      const response = await fetch('http://localhost:3105/api/v1/dashboard/events')
+      const response = await fetch('http://192.168.0.96:3105/api/v1/dashboard/events')
       if (response.ok) {
         const data = await response.json()
         setEvents(data.data.events || [])
@@ -313,7 +313,7 @@ export default function IntranetDashboard() {
       const formData = new FormData()
       formData.append('image', file)
 
-      const response = await fetch(`http://localhost:3105/api/v1/upload/subsystem/${selectedSubsystem.id}`, {
+      const response = await fetch(`http://192.168.0.96:3105/api/v1/upload/subsystem/${selectedSubsystem.id}`, {
         method: 'POST',
         body: formData,
       })
@@ -325,7 +325,7 @@ export default function IntranetDashboard() {
         // Update the subsystem image in state with full backend URL
         setSubsystems(prev => prev.map(sub => 
           sub.id === selectedSubsystem.id 
-            ? { ...sub, imageUrl: `http://localhost:3105${result.data.imageUrl}` }
+            ? { ...sub, imageUrl: `http://192.168.0.96:3105${result.data.imageUrl}` }
             : sub
         ))
         
@@ -464,7 +464,7 @@ export default function IntranetDashboard() {
     if (!dbUrl || dbUrl.trim().length === 0) return ''
     // Use backend 3105 for relative paths
     const normalized = dbUrl.startsWith('/') ? dbUrl : `/${dbUrl}`
-    const full = dbUrl.startsWith('http') ? dbUrl : `http://localhost:3105${normalized}`
+    const full = dbUrl.startsWith('http') ? dbUrl : `http://192.168.0.96:3105${normalized}`
     return full
   }
 
@@ -489,7 +489,7 @@ export default function IntranetDashboard() {
   const handleAddNote = async () => {
     if (newNote.trim()) {
       try {
-        const response = await fetch('http://localhost:3105/api/v1/dashboard/announcements', {
+        const response = await fetch('http://192.168.0.96:3105/api/v1/dashboard/announcements', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
