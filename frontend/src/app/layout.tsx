@@ -14,6 +14,11 @@ export const metadata: Metadata = {
   title: "ระบบจัดการองค์กร",
   description: "ศูนย์รวมแอปพลิเคชันทั้งหมดขององค์กร",
   generator: "v0.app",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
 }
 
 export default function RootLayout({
