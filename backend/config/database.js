@@ -35,7 +35,7 @@ module.exports = {
     username: process.env.DB_USER || 'jitdhana',
     password: process.env.DB_PASSWORD || 'iT12345$',
     database: process.env.DB_NAME || 'portal',
-    host: process.env.DB_HOST || '192.168.0.96',
+    host: process.env.DB_HOST || '192.168.0.94',
     port: process.env.DB_PORT || 3306,
     dialect: process.env.DB_DIALECT || 'mysql',
     logging: false,
