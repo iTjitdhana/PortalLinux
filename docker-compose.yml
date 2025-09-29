@@ -19,7 +19,7 @@ services:
       DB_DIALECT: mysql
       JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-key-here}
       JWT_EXPIRE: 7d
-      CORS_ORIGIN: http://localhost:3015
+      CORS_ORIGIN: http://192.168.0.96:3015
       RATE_LIMIT_WINDOW_MS: 900000
       RATE_LIMIT_MAX_REQUESTS: 100
     ports:
@@ -43,7 +43,7 @@ services:
     restart: unless-stopped
     environment:
       NODE_ENV: production
-      NEXT_PUBLIC_API_URL: http://localhost:3105
+      NEXT_PUBLIC_API_URL: http://192.168.0.96:3105
     ports:
       - "3015:3015"
     depends_on:
