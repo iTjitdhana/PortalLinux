@@ -180,7 +180,7 @@ const quickNotes = [
 export default function IntranetDashboard() {
   const [currentView, setCurrentView] = useState<"main" | "production">("main")
   const [activeNav, setActiveNav] = useState("dashboard")
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(true)
   const [showAddNote, setShowAddNote] = useState(false)
   const [newNote, setNewNote] = useState("")
   const [departmentsList, setDepartmentsList] = useState(departments)
