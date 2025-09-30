@@ -199,6 +199,8 @@ export default function IntranetDashboard() {
   const [loadingAnnouncements, setLoadingAnnouncements] = useState(false)
   const [events, setEvents] = useState<Event[]>([])
   const [loadingEvents, setLoadingEvents] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+  const [isTablet, setIsTablet] = useState(false)
 
   // Upload states
   const [showUploadModal, setShowUploadModal] = useState(false)
@@ -213,6 +215,26 @@ export default function IntranetDashboard() {
   const currentDate = new Date()
   const today = currentDate.getDate()
   const todayMonth = currentDate.getMonth()
+
+  // Responsive breakpoints
+  useEffect(() => {
+    const checkScreenSize = () => {
+      const width = window.innerWidth
+      setIsMobile(width < 768)
+      setIsTablet(width >= 768 && width < 1024)
+      
+      // Auto-collapse sidebar on mobile
+      if (width < 768) {
+        setSidebarCollapsed(true)
+        setMobileSidebarOpen(false)
+      }
+    }
+
+    checkScreenSize()
+    window.addEventListener('resize', checkScreenSize)
+    
+    return () => window.removeEventListener('resize', checkScreenSize)
+  }, [])
   const todayYear = currentDate.getFullYear()
 
   // Fetch departments from API
@@ -655,9 +677,13 @@ export default function IntranetDashboard() {
 
       {/* Sidebar Navigation */}
       <div
-        className={`${sidebarCollapsed ? "w-16" : "w-full sm:w-64 md:w-72 lg:w-80"} fixed lg:relative inset-y-0 left-0 z-50 lg:z-auto transform ${
-          mobileSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } lg:translate-x-0 transition-transform duration-300 ease-in-out lg:flex-shrink-0 text-white flex flex-col`}
+        className={`${
+          isMobile ? (sidebarCollapsed ? "w-0" : "w-full") :
+          sidebarCollapsed ? "w-16" : "w-64 lg:w-72 xl:w-80"
+        } fixed lg:relative inset-y-0 left-0 z-50 lg:z-auto transform ${
+          isMobile ? (mobileSidebarOpen ? "translate-x-0" : "-translate-x-full") :
+          "translate-x-0"
+        } transition-transform duration-300 ease-in-out lg:flex-shrink-0 text-white flex flex-col`}
         style={{ background: `linear-gradient(to bottom, #292F59, #292F59, #292F59)` }}
       >
         {/* Logo/Brand */}
@@ -751,9 +777,15 @@ export default function IntranetDashboard() {
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col overflow-hidden lg:ml-0">
+      <div className={`flex-1 flex flex-col overflow-hidden ${
+        isMobile ? 'ml-0' : 'lg:ml-0'
+      }`}>
         {currentView === "main" && (
-          <div className="relative h-48 lg:h-64 overflow-hidden">
+          <div className={`relative overflow-hidden ${
+            isMobile ? 'h-32' : 
+            isTablet ? 'h-40' : 
+            'h-48 lg:h-64'
+          }`}>
             {/* Building Background Image */}
             <div
               className="absolute inset-0 bg-cover bg-no-repeat"
@@ -772,8 +804,16 @@ export default function IntranetDashboard() {
             {/* Content Overlay */}
             <div className="relative z-10 h-full flex items-center justify-center text-center text-white px-4">
               <div>
-                <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2">บริษัท จิตต์ธนา จำกัด</h1>
-                <p className="text-xs sm:text-sm md:text-base lg:text-lg opacity-90">ระบบจัดการองค์กร</p>
+                <h1 className={`font-bold mb-2 ${
+                  isMobile ? 'text-lg' : 
+                  isTablet ? 'text-xl' : 
+                  'text-2xl lg:text-4xl'
+                }`}>บริษัท จิตต์ธนา จำกัด</h1>
+                <p className={`opacity-90 ${
+                  isMobile ? 'text-xs' : 
+                  isTablet ? 'text-sm' : 
+                  'text-sm lg:text-lg'
+                }`}>ระบบจัดการองค์กร</p>
               </div>
             </div>
 
@@ -791,8 +831,12 @@ export default function IntranetDashboard() {
             </div>
 
             {/* Search Section */}
-            <div className="absolute top-4 right-4 flex items-center gap-2 z-20">
-              <div className="relative hidden md:block">
+            <div className={`absolute top-4 right-4 flex items-center gap-2 z-20 ${
+              isMobile ? 'flex-col gap-1' : 'flex-row'
+            }`}>
+              <div className={`relative ${
+                isMobile ? 'block' : 'hidden md:block'
+              }`}>
                 <Search
                   className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/70 w-4 h-4"
                   strokeWidth={1.5}
@@ -808,7 +852,11 @@ export default function IntranetDashboard() {
                     onFocus={() => updateSuggestions(searchQuery)}
                     onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
                     onKeyDown={handleSearchKeyDown}
-                    className="pl-10 w-48 lg:w-64 bg-white/10 border-white/20 text-white placeholder:text-white/70 backdrop-blur-sm"
+                    className={`pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/70 backdrop-blur-sm ${
+                      isMobile ? 'w-40' : 
+                      isTablet ? 'w-48' : 
+                      'w-48 lg:w-64'
+                    }`}
                   />
                   {showSuggestions && (
                     <div className="absolute mt-1 left-0 right-0 bg-white text-gray-800 rounded-md shadow-lg border border-gray-200 z-50 max-h-64 overflow-auto">
@@ -1113,7 +1161,11 @@ export default function IntranetDashboard() {
                     <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-foreground">ระบบจัดการผลิต</h2>
                   </div>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-3 2xl:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
+                <div className={`grid gap-3 sm:gap-4 md:gap-5 lg:gap-6 ${
+                  isMobile ? 'grid-cols-1' : 
+                  isTablet ? 'grid-cols-2' : 
+                  'grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5'
+                }`}>
                   {loadingSubsystems ? (
                     // Loading skeleton
                     Array.from({ length: 4 }).map((_, index) => (
