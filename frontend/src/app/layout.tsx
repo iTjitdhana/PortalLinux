@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   title: "ระบบจัดการองค์กร",
   description: "ศูนย์รวมแอปพลิเคชันทั้งหมดขององค์กร",
   generator: "v0.app",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",

@@ -655,18 +655,18 @@ export default function IntranetDashboard() {
 
       {/* Sidebar Navigation */}
       <div
-        className={`${sidebarCollapsed ? "w-16" : "w-64"} fixed lg:relative inset-y-0 left-0 z-50 lg:z-auto transform ${
+        className={`${sidebarCollapsed ? "w-16" : "w-full sm:w-64 md:w-72 lg:w-80"} fixed lg:relative inset-y-0 left-0 z-50 lg:z-auto transform ${
           mobileSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0 transition-transform duration-300 ease-in-out lg:flex-shrink-0 text-white flex flex-col`}
         style={{ background: `linear-gradient(to bottom, #292F59, #292F59, #292F59)` }}
       >
         {/* Logo/Brand */}
-        <div className="p-4 lg:p-6 border-b border-white/10">
+        <div className="p-3 sm:p-4 md:p-5 lg:p-6 border-b border-white/10">
           <div className="flex items-center justify-between">
             {!sidebarCollapsed && (
               <div className="flex-1">
-                <h1 className="text-lg lg:text-xl font-bold text-white">ระบบจัดการองค์กร</h1>
-                <p className="text-xs text-white/70 mt-0.5">JITDHANA WEB PORTAL</p>
+                <h1 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-white">ระบบจัดการองค์กร</h1>
+                <p className="text-xs sm:text-sm text-white/70 mt-0.5">JITDHANA WEB PORTAL</p>
               </div>
             )}
             <Button
@@ -772,8 +772,8 @@ export default function IntranetDashboard() {
             {/* Content Overlay */}
             <div className="relative z-10 h-full flex items-center justify-center text-center text-white px-4">
               <div>
-                <h1 className="text-2xl lg:text-4xl font-bold mb-2">บริษัท จิตต์ธนา จำกัด</h1>
-                <p className="text-sm lg:text-lg opacity-90">ระบบจัดการองค์กร</p>
+                <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2">บริษัท จิตต์ธนา จำกัด</h1>
+                <p className="text-xs sm:text-sm md:text-base lg:text-lg opacity-90">ระบบจัดการองค์กร</p>
               </div>
             </div>
 
@@ -1110,15 +1110,15 @@ export default function IntranetDashboard() {
                       <ChevronLeft className="w-4 h-4 mr-1 lg:mr-2 text-white" strokeWidth={1.5} />
                       <span className="hidden sm:inline text-white">Back</span>
                     </Button>
-                    <h2 className="text-xl lg:text-2xl font-bold text-foreground">ระบบจัดการผลิต</h2>
+                    <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-foreground">ระบบจัดการผลิต</h2>
                   </div>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 2xl:grid-cols-3 gap-4 lg:gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-3 2xl:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
                   {loadingSubsystems ? (
                     // Loading skeleton
                     Array.from({ length: 4 }).map((_, index) => (
                       <Card key={index} className="border border-gray-200 bg-white overflow-hidden">
-                        <div className="p-4 lg:p-6">
+                        <div className="p-3 sm:p-4 md:p-5 lg:p-6">
                           <div className="flex items-start gap-3">
                             <div className="w-8 h-8 lg:w-10 lg:h-10 bg-gray-200 rounded-full animate-pulse flex-shrink-0"></div>
                             <div className="flex-1 min-w-0">
@@ -1165,11 +1165,11 @@ export default function IntranetDashboard() {
                               </button>
                             </div>
                           </div>
-                          <div className="p-4 lg:p-5">
-                            <h3 className="font-medium text-sm lg:text-base text-gray-800 mb-1.5 leading-tight break-words">
+                          <div className="p-3 sm:p-4 md:p-5 lg:p-6">
+                            <h3 className="font-medium text-xs sm:text-sm md:text-base lg:text-lg text-gray-800 mb-1 sm:mb-1.5 leading-tight break-words">
                               {subsystem.name}
                             </h3>
-                            <div className="text-xs lg:text-sm text-gray-600 break-all">
+                            <div className="text-xs sm:text-xs md:text-sm lg:text-sm text-gray-600 break-all">
                               <span className="block truncate">{subsystem.url}</span>
                             </div>
                           </div>
