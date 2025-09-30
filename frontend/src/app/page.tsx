@@ -189,7 +189,7 @@ export default function IntranetDashboard() {
   const [notes, setNotes] = useState(quickNotes)
   const [editingNote, setEditingNote] = useState<string | null>(null)
   const [editText, setEditText] = useState("")
-  const [announcementsCollapsed, setAnnouncementsCollapsed] = useState(false)
+  const [announcementsCollapsed, setAnnouncementsCollapsed] = useState(true)
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
   const [subsystems, setSubsystems] = useState<Subsystem[]>([])
   const [loadingSubsystems, setLoadingSubsystems] = useState(false)
@@ -700,6 +700,7 @@ export default function IntranetDashboard() {
               className={`w-full ${sidebarCollapsed ? "justify-center px-2" : "justify-start"} text-white hover:bg-white/10 hover:text-white ${activeNav === "dashboard" ? "bg-white/20 text-white" : ""} h-10 lg:h-auto`}
               onClick={() => {
                 setActiveNav("dashboard")
+                setCurrentView("main")
                 setMobileSidebarOpen(false)
               }}
               title={sidebarCollapsed ? "หน้าแรก" : ""}
@@ -709,7 +710,7 @@ export default function IntranetDashboard() {
             </Button>
             <Button
               variant={activeNav === "feed" ? "secondary" : "ghost"}
-              className={`w-full ${sidebarCollapsed ? "justify-center px-2" : "justify-start"} text-white hover:bg-white/10 hover:text-white ${activeNav === "feed" ? "bg-white/20 text-white" : ""} h-10 lg:h-auto`}
+              className={`w-full ${sidebarCollapsed ? "justify-center px-2" : "justify-start"} text-white hover:bg-white/10 hover:text-white ${activeNav === "feed" ? "bg-white/20 text-white" : ""} h-10 lg:h-auto hidden`}
               onClick={() => {
                 setActiveNav("feed")
                 setMobileSidebarOpen(false)
@@ -723,7 +724,7 @@ export default function IntranetDashboard() {
         </nav>
 
         {/* User Profile Section */}
-        <div className="p-3 lg:p-4 border-t border-white/10">
+        <div className="p-3 lg:p-4 border-t border-white/10 hidden">
           {!sidebarCollapsed ? (
             <>
               <div className="flex items-center gap-3 mb-3 lg:mb-4">
@@ -798,7 +799,7 @@ export default function IntranetDashboard() {
                 />
                 <div className="relative">
                   <Input
-                    placeholder="พิมพ์ชื่อระบบหรือ slug"
+                    placeholder="พิมพ์ค้นหาชื่อระบบ"
                     value={searchQuery}
                     onChange={(e) => {
                       setSearchQuery(e.target.value)
