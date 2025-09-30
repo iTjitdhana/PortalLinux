@@ -878,7 +878,7 @@ export default function IntranetDashboard() {
                   />
                   <div className="relative">
                     <Input
-                      placeholder="พิมพ์ชื่อระบบหรือ slug"
+                      placeholder="พิมพ์ค้นหาชื่อระบบ"
                       value={searchQuery}
                       onChange={(e) => {
                         setSearchQuery(e.target.value)
@@ -927,7 +927,7 @@ export default function IntranetDashboard() {
                 />
                 <div className="relative">
                   <Input
-                    placeholder="พิมพ์ชื่อระบบหรือ slug"
+                    placeholder="พิมพ์ค้นหาชื่อระบบ"
                     value={searchQuery}
                     onChange={(e) => {
                       setSearchQuery(e.target.value)
@@ -972,7 +972,7 @@ export default function IntranetDashboard() {
               />
               <div className="relative">
                 <Input
-                  placeholder="พิมพ์ชื่อระบบหรือ slug"
+                  placeholder="พิมพ์ค้นหาชื่อระบบ"
                   value={searchQuery}
                   onChange={(e) => {
                     setSearchQuery(e.target.value)
